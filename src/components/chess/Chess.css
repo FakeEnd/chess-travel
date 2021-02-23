@@ -1,0 +1,95 @@
+.chessfield {
+    display: flex;
+    margin: 20px;
+    border: 1px solid black;
+    flex-wrap: wrap;
+    background-size: cover
+}
+
+.chessexcel {
+    width: 60px;
+    height: 60px;
+    color: red;
+    border: 1px solid black;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chesscurrent {
+    color: transparent;
+    background: url("../../images/horse.png") center no-repeat;
+    background-size: cover;
+}
+
+.chesslist {
+    overflow: scroll;
+    border: #73d2f3 1px solid;
+    margin: 20px;
+    height: 300px;
+}
+
+/**scroll**/
+
+/*css主要部分的样式*/
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+
+::-webkit-scrollbar {
+
+    width: 6px;
+    /*对垂直流动条有效*/
+
+    height: 6px;
+    /*对水平流动条有效*/
+
+}
+
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+
+::-webkit-scrollbar-track {
+
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .2); */
+
+    background: linear-gradient(to top, #fcf5ee, #faf7e6, #73d2f3, #eeeeee);
+
+    border-radius: 1px;
+
+    display: none;
+
+}
+
+/*定义滑块颜色、内阴影及圆角*/
+
+::-webkit-scrollbar-thumb {
+
+    border-radius: 1px;
+
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .2); */
+
+    background: linear-gradient(to top, #fcf5ee, #faf7e6, #73d2f3, #eeeeee);
+
+}
+
+/*定义两端按钮的样式*/
+
+::-webkit-scrollbar-button {
+
+    background-color: #ffffff;
+
+}
+
+/*定义右下角汇合处的样式*/
+
+::-webkit-scrollbar-corner {
+
+    background: #ffffff;
+
+}
+
+::-webkit-scrollbar-track-piece {
+
+    background-color: #ffffff;
+
+}

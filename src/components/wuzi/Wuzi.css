@@ -1,0 +1,56 @@
+.square {
+    width: 45px;
+    height: 45px;
+    border: solid black 0.5px;
+    float: left;
+    box-sizing: border-box;
+    font-size: 25px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.square:hover {
+    background: rgb(230, 99, 12);
+
+}
+
+.box-wrap {
+    width: 452px;
+    height: 452px;
+    border: solid black 1px;
+    float: left;
+}
+
+.history {
+    width: 400px;
+    height: 400px;
+    float: left;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+    /* width: 1000px;
+    position: relative;
+    left: 230px;
+    top: 50px; */
+}
+
+.button-one {
+    color: rgb(204, 48, 9);
+    font-size: 15px;
+
+}
+
+.list {
+    height: 370px;
+    overflow: scroll;
+}
+
+.button:hover {
+    color: rgb(230, 58, 16);
+    font-weight: bold;
+    font-size: 16px;
+}

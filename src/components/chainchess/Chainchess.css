@@ -1,0 +1,27 @@
+.Chainfield {
+    display: flex;
+    margin: 25px;
+    border: 1px solid black;
+    width: 540px;
+    height: 600px;
+    flex-wrap: wrap;
+    background: url("../../images/中国象棋.png") 540px 600px;
+    background-size: cover
+}
+
+.Chainexcel {
+    width: 60px;
+    height: 60px;
+    color: red;
+    /* border: 1px solid black; */
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Chaincurrent {
+    color: transparent;
+    background: url("../../images/马.jpg") center no-repeat;
+    background-size: cover;
+}
