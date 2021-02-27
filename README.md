@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+## Question
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+设计程序完成如下要求：在中国象棋盘上，对任意位置上放置一个马，均能选择一个合适的路线，使得该棋子能够按照象棋的规则不重复的走过棋盘上的每一位置。
 
-## Available Scripts
+1. 依次输出走过的各位置的坐标
+2. 最好能画出棋盘的图形形式，并在其上动态的标注行走过程
+3. 程序能方便的移植到其他规格的棋盘上
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Answer
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+这道题目的原型是骑士巡游，在维基百科上可以很轻松的搜到关于这个题目的历史和方法
 
-### `yarn test`
+这里提供两个比较好的github的解答，这两个解答给了我很多思路和启发
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[qt实现](https://github.com/anagardi/knight-tour)  [js实现](https://github.com/tiner101/Hours)
 
-### `yarn build`
+对这个题算法的想法
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. 用递归（迭代）来做这个题目，就是深度优先搜索，这是很容易就想到的方法
+2. 但是如果仅仅只有迭代的话复杂度会很高，所以必须要有剪枝或者其他思路来辅助
+3. 这里用到了一个很重要的规则：Warnsdorff规则指在所有可走且未经过的方格中，马只可能走这样一个方格：从该方格出发,马能跳的方格数最少；如果可跳的方格数相等，则从当前位置看,方格序号小的优先。依照这一规则往往可以找到一条路径但是并不一定能够成功。
+4. 这个规则至关重要，通过这个规则对递归的顺序进行排序就能大量减少用时，这种方法可以归结为贪心的思想
+5. 还有一个Tip，就是马的跳的顺序可以用两个数组组合来表示，这样会方便很多
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+对这个题图形化的想法
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. 图形化的话肯定是前端比较方便的实现，采用的是react，以及antd的ui
+2. 用定时器来操作马的移动是动态显示的重点，以及数组的调整和映射也是尤其的重要
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to run？
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+在clone后`npm install`再`npm start`即可
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+注意的是对于中国象棋来说复杂度过高可能某些点还是跑不出来
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Screen shots
 
-### Code Splitting
+![image-20210227234257786](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20210227234257786.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![image-20210227234314413](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20210227234314413.png)

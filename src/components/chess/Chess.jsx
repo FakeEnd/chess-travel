@@ -64,7 +64,7 @@ export default function Chess() {
     const handleBegin = () => {
         setloading(false)
 
-        console.log(done)
+        // console.log(done)
         let step = 0;
         let begin = setInterval(() => {
             let temp = done;
@@ -93,10 +93,10 @@ export default function Chess() {
                     if (parseInt(index / col) % 2 == 1) {
                         // console.log(index-col*parseInt(index/row));
                         theme =
-                            (index - col * parseInt(index / col)) % 2 ? "brown" : "white";
+                            (index - col * parseInt(index / col)) % 2 ? "green" : "white";
                     } else {
                         theme =
-                            (index - col * parseInt(index / col)) % 2 ? "white" : "brown";
+                            (index - col * parseInt(index / col)) % 2 ? "white" : "green";
                     }
                     return (
                         <Excel
@@ -111,7 +111,7 @@ export default function Chess() {
                 })}
             </div>
             <div style={{ margin: "0px 0px 0px 20px" }}>
-                <Slider style={{ margin: "20px 10px 0px 0px", width: "200px" }} min={200} max={800} onChange={(value) => setIntervalTime(value)} />
+                <Slider style={{ margin: "20px 10px 0px 0px", width: "200px" }} min={50} max={800} onChange={(value) => setIntervalTime(value)} />
                 <Divider orientation="left" style={{ margin: '5px 0px' }} plain>调节横纵长度</Divider>
                 横轴长度：<InputNumber min={4} max={9} defaultValue={6} onChange={(value) => setTempCol(value)} />
                 <br />
@@ -131,13 +131,17 @@ export default function Chess() {
                 </Button>
             </div>
             <div>
-                <Divider orientation="left" style={{ margin: '20px 20px 0px',width: "200px" }}>走过的各位置的坐标</Divider>
+                <Divider orientation="left" style={{ margin: '20px 20px 0px', width: "200px" }}>走过的各位置的坐标</Divider>
                 <div className="chesslist">
-                    {
-                        result.map((value,index)=>{
-                            return <ol style={{margin:'0px'}} >{value}</ol>
-                        })
-                    }
+                    <ol >
+                        {
+                            doc.map((value, index) => {
+                                let one = parseInt(value / col)
+                                let two = value - one * col
+                                return <li key={value} style={{ margin: '0px' }} >{` ♞ jumpto (${one + 1} , ${two + 1})`}</li>
+                            })
+                        }
+                    </ol>
                 </div>
             </div>
         </div>

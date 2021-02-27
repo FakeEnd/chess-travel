@@ -3,19 +3,19 @@ import { Button, Slider, message, InputNumber, Divider } from "antd";
 import { alo } from "../../alo";
 import './Chainchess.css'
 const Excel = (props) => {
-  return (
-      <div
-          className={
-              props.isSet !== props.index ? "Chainexcel" : "Chainexcel Chaincurrent"
-          }
-      >
-          {props.isDone ? props.value : ""}
-      </div>
-  );
+    return (
+        <div
+            className={
+                props.isSet !== props.index ? "Chainexcel" : "Chainexcel Chaincurrent"
+            }
+        >
+            {props.isDone ? props.value : ""}
+        </div>
+    );
 };
 
 function Chainchess() {
-  const [doc, setDoc] = useState([]);//行走的方式，就是每一步的位置记录
+    const [doc, setDoc] = useState([]);//行走的方式，就是每一步的位置记录
     const [result, setResult] = useState([]);//将原本答案的二维数组concat为一唯数组
     const [done, setDone] = useState([]);//记录当前的点是否到达过
     const [row, setRow] = useState(10);//行数
@@ -45,7 +45,7 @@ function Chainchess() {
         setDoc(arrDoc);
         setDone(arrDone);
         setResult(arrResult);
-        setActive(X*col+Y)
+        setActive(X * col + Y)
     }, [end]);
 
     const ensurecolrow = () => {
@@ -69,7 +69,7 @@ function Chainchess() {
         setDoc(arrDoc);
         setDone(arrDone);
         setResult(arrResult);
-        setActive(X*col+Y)
+        setActive(X * col + Y)
     }
 
     const handleBegin = () => {
@@ -122,11 +122,11 @@ function Chainchess() {
                 })}
             </div>
             <div>
-                <Slider style={{ margin: "20px 0px 0px 0px",width:"200px" }} min={200} max={800} onChange={(value) => setIntervalTime(value)} />
-                <Divider orientation="left" style={{margin:'20px 0px 5px'}}  plain>调节横纵坐标</Divider>
-                纵轴坐标：<InputNumber min={1} max={row} defaultValue={1} onChange={(value)=>setX(value-1)} />
-                <br/>
-                横轴坐标：<InputNumber min={1} max={col} defaultValue={1} onChange={(value)=>setY(value-1)} />
+                <Slider style={{ margin: "20px 0px 0px 0px", width: "200px" }} min={200} max={800} onChange={(value) => setIntervalTime(value)} />
+                <Divider orientation="left" style={{ margin: '20px 0px 5px' }} plain>调节横纵坐标</Divider>
+                纵轴坐标：<InputNumber min={1} max={row} defaultValue={1} onChange={(value) => setX(value - 1)} />
+                <br />
+                横轴坐标：<InputNumber min={1} max={col} defaultValue={1} onChange={(value) => setY(value - 1)} />
                 <br />
                 <Button onClick={ensure} >确认</Button>
                 <Button style={{ margin: "10px" }} onClick={loading ? handleBegin : () => {
