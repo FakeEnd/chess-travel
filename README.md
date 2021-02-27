@@ -41,6 +41,6 @@
 
 ## Screen shots
 
-![image-20210227234257786](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20210227234257786.png)
+![chesspreview](src/images/chesspreview.png)
 
-![image-20210227234314413](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20210227234314413.png)
+![chainchesspreview](src/images/chainchesspreview.png)
