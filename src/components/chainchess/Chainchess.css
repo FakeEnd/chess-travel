@@ -2,19 +2,19 @@
     display: flex;
     margin: 25px;
     border: 1px solid black;
-    width: 540px;
-    height: 600px;
+    width: 450px;
+    height: 500px;
     flex-wrap: wrap;
-    background: url("../../images/中国象棋.png") 540px 600px;
+    background: url("../../images/中国象棋.png") 450px 500px;
     background-size: cover
 }
 
 .Chainexcel {
-    width: 60px;
-    height: 60px;
-    color: red;
+    width: 50px;
+    height: 50px;
+    color: rgba(192, 7, 47, 0.849);
     /* border: 1px solid black; */
-    font-size: 50px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +22,13 @@
 
 .Chaincurrent {
     color: transparent;
-    background: url("../../images/马.jpg") center no-repeat;
+    background: url("../../images/horse1.png") center no-repeat;
     background-size: cover;
+}
+
+.chainchesslist {
+    overflow: scroll;
+    border: transparent 1px solid;
+    margin: 5px 0px 0px 0px;
+    height: 300px;
 }

@@ -20,21 +20,22 @@ export default function Chess() {
     const [Y, setY] = useState(0)
 
     useEffect(() => {
-        let temp = alo(row, col, X, Y);//得到当前的数组
+        ensure()
+        // let temp = alo(row, col, X, Y);//得到当前的数组
 
-        let arrDoc = Array(row * col).fill(null);
-        let arrDone = Array(row * col).fill(false);
-        let arrResult = Array(row * col).fill(null);
-        for (let i = 0; i < row; i++) {
-            for (let j = 0; j < col; j++) {
-                arrDoc[temp[i][j] - 1] = j + i * col;
-                arrResult[j + i * col] = temp[i][j];
-            }
-        }
-        setDoc(arrDoc);
-        setDone(arrDone);
-        setResult(arrResult);
-        setActive(X * col + Y)
+        // let arrDoc = Array(row * col).fill(null);
+        // let arrDone = Array(row * col).fill(false);
+        // let arrResult = Array(row * col).fill(null);
+        // for (let i = 0; i < row; i++) {
+        //     for (let j = 0; j < col; j++) {
+        //         arrDoc[temp[i][j] - 1] = j + i * col;
+        //         arrResult[j + i * col] = temp[i][j];
+        //     }
+        // }
+        // setDoc(arrDoc);
+        // setDone(arrDone);
+        // setResult(arrResult);
+        // setActive(X * col + Y)
     }, [end]);
 
     const ensurecolrow = () => {

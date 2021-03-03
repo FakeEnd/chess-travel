@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Slider, message, InputNumber, Divider } from "antd";
-import { alo } from "../../alo";
+import { Button, Slider, message, InputNumber, Divider, Spin } from "antd";
+// import { alo } from "../../alo";
 import './Chainchess.css'
 const Excel = (props) => {
     return (
@@ -25,27 +25,15 @@ function Chainchess() {
     const [end, setend] = useState(true)//重新渲染的指针
     const [loading, setloading] = useState(true)//当前能否运行的指向
 
+    const [fetchLoading, setfetchLoading] = useState(false)//当前能否运行的指向
+    const [listLoading, setlistLoading] = useState(false)//当前能否运行的指向
     const [temprow, setTempRow] = useState(10);//行数
     const [tempcol, setTempCol] = useState(9);//列数
     const [X, setX] = useState(0)
     const [Y, setY] = useState(0)
 
     useEffect(() => {
-        let temp = alo(row, col, X, Y);//得到当前的数组
-
-        let arrDoc = Array(row * col).fill(null);
-        let arrDone = Array(row * col).fill(false);
-        let arrResult = Array(row * col).fill(null);
-        for (let i = 0; i < row; i++) {
-            for (let j = 0; j < col; j++) {
-                arrDoc[temp[i][j] - 1] = j + i * col;
-                arrResult[j + i * col] = temp[i][j];
-            }
-        }
-        setDoc(arrDoc);
-        setDone(arrDone);
-        setResult(arrResult);
-        setActive(X * col + Y)
+        ensure()
     }, [end]);
 
     const ensurecolrow = () => {
@@ -54,8 +42,56 @@ function Chainchess() {
         setend(!end)
     }
 
-    const ensure = () => {
-        let temp = alo(row, col, X, Y);//得到当前的数组
+    const ensure = async () => {
+        // let fetchBody = qs.stringfy({
+        //     "x":row,
+        //     "y":col,
+        //     "m":X,
+        //     "n":Y
+        // })
+        let temp
+        setfetchLoading(true)
+        setlistLoading(true)
+        //这里的服务是发向腾讯云服务器上的配置。所以需要等待
+        //为什么有两个请求在这里呢？是因为一个搜索的顺序是顺时针方向，一个搜索的顺序是逆时针
+        //经过大量实验表明逆时针卡住的往往能在顺时针的搜说中出来，这其实很容易想明白
+        //如果第一个搜索请求超时就给第二个请求操作，超时的时间设置的是10s
+        await fetch(`https://service-bek82cv8-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Cross-Origin-Resource-Policy': 'cross-origin'
+            },
+        })
+            .then(res => res.json())
+            .then(data => (temp = data, console.log(data)))
+        console.log(temp)
+        if (temp.errorCode === -1 || temp === null) {
+            await fetch(`https://service-aj1qsgcs-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Cross-Origin-Resource-Policy': 'cross-origin'
+                },
+            })
+                .then(res => res.json())
+                .then(data => (temp = data, console.log(data)))
+        }
+
+        // if (temp.errorCode===-1||temp === null) {
+        //     await fetch(`https://service-aj1qsgcs-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json;charset=UTF-8',
+        //             'Cross-Origin-Resource-Policy': 'cross-origin'
+        //         },
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => (temp = data,console.log(data)))
+        // }
+
+
+        // let temp = data1 || data2;//得到当前的数组
 
         let arrDoc = Array(row * col).fill(null);
         let arrDone = Array(row * col).fill(false);
@@ -70,6 +106,8 @@ function Chainchess() {
         setDone(arrDone);
         setResult(arrResult);
         setActive(X * col + Y)
+        setfetchLoading(false)
+        setlistLoading(false)
     }
 
     const handleBegin = () => {
@@ -97,7 +135,7 @@ function Chainchess() {
         <div style={{ display: "flex", justifyContent: "center" }}>
             <div
                 className="Chainfield"
-                style={{ height: row * 60 + 2, width: col * 60 + 2 }}
+                style={{ height: row * 50 + 2, width: col * 50 + 2 }}
             >
                 {result.map((value, index) => {
                     let theme;
@@ -122,18 +160,32 @@ function Chainchess() {
                 })}
             </div>
             <div>
-                <Slider style={{ margin: "20px 0px 0px 0px", width: "200px" }} min={200} max={800} onChange={(value) => setIntervalTime(value)} />
+                <Slider style={{ margin: "20px 0px 0px 0px", width: "200px" }} min={50} max={800} onChange={(value) => setIntervalTime(value)} />
                 <Divider orientation="left" style={{ margin: '20px 0px 5px' }} plain>调节横纵坐标</Divider>
                 纵轴坐标：<InputNumber min={1} max={row} defaultValue={1} onChange={(value) => setX(value - 1)} />
                 <br />
                 横轴坐标：<InputNumber min={1} max={col} defaultValue={1} onChange={(value) => setY(value - 1)} />
                 <br />
-                <Button onClick={ensure} >确认</Button>
+                <Button loading={fetchLoading} onClick={ensure} >确认</Button>
                 <Button style={{ margin: "10px" }} onClick={loading ? handleBegin : () => {
                     message.error('程序正在运行中');
                 }}>
                     begin
                 </Button>
+                <Divider orientation="left" style={{ margin: '20px 0px 0px', width: "200px" }}>走过的各位置的坐标</Divider>
+                <div className="chainchesslist">
+                    <Spin style={{height:'300px'}} spinning={listLoading} >
+                        <ol >
+                            {
+                                doc.map((value, index) => {
+                                    let one = parseInt(value / col)
+                                    let two = value - one * col
+                                    return <li key={value} style={{ margin: '0px' }} >{` ♞ jumpto (${one + 1} , ${two + 1})`}</li>
+                                })
+                            }
+                        </ol>
+                    </Spin>
+                </div>
             </div>
 
         </div>

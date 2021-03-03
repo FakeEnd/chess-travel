@@ -27,7 +27,7 @@ function App() {
                     >
                         <Menu.Item key="/chess">chess</Menu.Item>
                         <Menu.Item key="/chainchess">chainchess</Menu.Item>
-                        <Menu.Item key="/wuzi">五子棋</Menu.Item>
+                        {/* <Menu.Item key="/wuzi">五子棋</Menu.Item> */}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '10px 10px', margin: '0px ', height: '100%' }}>
