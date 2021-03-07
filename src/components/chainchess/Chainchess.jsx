@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Slider, message, InputNumber, Divider, Spin } from "antd";
-// import { alo } from "../../alo";
+import { alo } from "../../alo";
 import './Chainchess.css'
 const Excel = (props) => {
     return (
@@ -21,14 +21,13 @@ function Chainchess() {
     const [row, setRow] = useState(10);//行数
     const [col, setCol] = useState(9);//列数
     const [active, setActive] = useState(0);//当前马所在点的坐标
-    const [intervalTime, setIntervalTime] = useState(300);//马移动的间隔时间
+    const [intervalTime, setIntervalTime] = useState(100);//马移动的间隔时间
     const [end, setend] = useState(true)//重新渲染的指针
     const [loading, setloading] = useState(true)//当前能否运行的指向
 
     const [fetchLoading, setfetchLoading] = useState(false)//当前能否运行的指向
     const [listLoading, setlistLoading] = useState(false)//当前能否运行的指向
-    const [temprow, setTempRow] = useState(10);//行数
-    const [tempcol, setTempCol] = useState(9);//列数
+
     const [X, setX] = useState(0)
     const [Y, setY] = useState(0)
 
@@ -36,49 +35,26 @@ function Chainchess() {
         ensure()
     }, [end]);
 
-    const ensurecolrow = () => {
-        setCol(tempcol)
-        setRow(temprow)
-        setend(!end)
-    }
-
     const ensure = async () => {
-        // let fetchBody = qs.stringfy({
-        //     "x":row,
-        //     "y":col,
-        //     "m":X,
-        //     "n":Y
-        // })
-        let temp
+        // let temp
         setfetchLoading(true)
         setlistLoading(true)
         //这里的服务是发向腾讯云服务器上的配置。所以需要等待
+        //sorry,发现无须这样的操作
         //为什么有两个请求在这里呢？是因为一个搜索的顺序是顺时针方向，一个搜索的顺序是逆时针
         //经过大量实验表明逆时针卡住的往往能在顺时针的搜说中出来，这其实很容易想明白
         //如果第一个搜索请求超时就给第二个请求操作，超时的时间设置的是10s
-        await fetch(`https://service-bek82cv8-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Cross-Origin-Resource-Policy': 'cross-origin'
-            },
-        })
-            .then(res => res.json())
-            .then(data => (temp = data, console.log(data)))
-        console.log(temp)
-        if (temp.errorCode === -1 || temp === null) {
-            await fetch(`https://service-aj1qsgcs-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Cross-Origin-Resource-Policy': 'cross-origin'
-                },
-            })
-                .then(res => res.json())
-                .then(data => (temp = data, console.log(data)))
-        }
-
-        // if (temp.errorCode===-1||temp === null) {
+        // await fetch(`https://service-bek82cv8-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=UTF-8',
+        //         'Cross-Origin-Resource-Policy': 'cross-origin'
+        //     },
+        // })
+        //     .then(res => res.json())
+        //     .then(data => (temp = data))
+        // console.log(temp)
+        // if (temp.errorCode === -1 || temp === null) {
         //     await fetch(`https://service-aj1qsgcs-1305114804.gz.apigw.tencentcs.com/release?x=${row}&y=${col}&m=${X}&n=${Y}`, {
         //         method: 'GET',
         //         headers: {
@@ -87,11 +63,10 @@ function Chainchess() {
         //         },
         //     })
         //         .then(res => res.json())
-        //         .then(data => (temp = data,console.log(data)))
+        //         .then(data => (temp = data))
         // }
 
-
-        // let temp = data1 || data2;//得到当前的数组
+        let temp = alo(row, col, X, Y);//得到当前的数组
 
         let arrDoc = Array(row * col).fill(null);
         let arrDone = Array(row * col).fill(false);

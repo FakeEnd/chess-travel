@@ -21,21 +21,6 @@ export default function Chess() {
 
     useEffect(() => {
         ensure()
-        // let temp = alo(row, col, X, Y);//得到当前的数组
-
-        // let arrDoc = Array(row * col).fill(null);
-        // let arrDone = Array(row * col).fill(false);
-        // let arrResult = Array(row * col).fill(null);
-        // for (let i = 0; i < row; i++) {
-        //     for (let j = 0; j < col; j++) {
-        //         arrDoc[temp[i][j] - 1] = j + i * col;
-        //         arrResult[j + i * col] = temp[i][j];
-        //     }
-        // }
-        // setDoc(arrDoc);
-        // setDone(arrDone);
-        // setResult(arrResult);
-        // setActive(X * col + Y)
     }, [end]);
 
     const ensurecolrow = () => {
@@ -46,6 +31,10 @@ export default function Chess() {
 
     const ensure = () => {
         let temp = alo(row, col, X, Y);//得到当前的数组
+
+        if(temp[0][0]==0){
+            message.warn('无法走通此条路径')
+        }
 
         let arrDoc = Array(row * col).fill(null);
         let arrDone = Array(row * col).fill(false);
@@ -76,7 +65,7 @@ export default function Chess() {
             if (step == row * col) {
                 clearInterval(begin);
                 setTimeout(() => {
-                    // setend(!end)
+                    setend(!end)
                 }, 3000);
                 setloading(true)
             }
