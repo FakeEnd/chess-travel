@@ -76,7 +76,7 @@ export default function Chess() {
             if (step == row * col) {
                 clearInterval(begin);
                 setTimeout(() => {
-                    setend(!end)
+                    // setend(!end)
                 }, 3000);
                 setloading(true)
             }

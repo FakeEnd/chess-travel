@@ -16,7 +16,7 @@
 
 这里提供两个比较好的github的解答，这两个解答给了我很多思路和启发
 
-[qt实现](https://github.com/anagardi/knight-tour)  [js实现](https://github.com/tiner101/Hours)
+[C#实现](https://github.com/anagardi/knight-tour)  [js实现](https://github.com/tiner101/Hours)
 
 对这个题算法的想法
 

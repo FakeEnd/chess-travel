@@ -1,6 +1,6 @@
-let X,Y,finished,visited,chessboard
+let X, Y, finished, visited, chessboard
 
-export const alo = (x, y,m,n) => {
+export const alo = (x, y, m, n) => {
     X = x//纵轴长度row
     Y = y//横轴长度col
     finished = false
@@ -33,7 +33,6 @@ const traversalChessboard = (chessboard, row, column, step) => {
             return 1;
         }
     });
-    // console.log(ps)
     // 遍历ps
     while (ps.length > 0) {
         let p = ps[0]
