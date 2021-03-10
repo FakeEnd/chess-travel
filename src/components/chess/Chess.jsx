@@ -32,7 +32,7 @@ export default function Chess() {
     const ensure = () => {
         let temp = alo(row, col, X, Y);//得到当前的数组
 
-        if(temp[0][0]==0){
+        if (temp[0][0] == 0) {
             message.warn('无法走通此条路径')
         }
 
@@ -107,13 +107,17 @@ export default function Chess() {
                 <br />
                 纵轴长度：<InputNumber min={4} max={9} defaultValue={6} onChange={(value) => setTempRow(value)} />
                 <br />
-                <Button onClick={ensurecolrow} >确认</Button>
+                <Button onClick={loading ? ensurecolrow : () => {
+                    message.error('程序正在运行中');
+                }}>确认</Button>
                 <Divider orientation="left" style={{ margin: '20px 0px 5px' }} plain>调节横纵坐标</Divider>
                 纵轴坐标：<InputNumber min={1} max={row} defaultValue={1} onChange={(value) => setX(value - 1)} />
                 <br />
                 横轴坐标：<InputNumber min={1} max={col} defaultValue={1} onChange={(value) => setY(value - 1)} />
                 <br />
-                <Button onClick={ensure} >确认</Button>
+                <Button onClick={loading ? ensure : () => {
+                    message.error('程序正在运行中');
+                }}>确认</Button>
                 <Button style={{ margin: "10px" }} onClick={loading ? handleBegin : () => {
                     message.error('程序正在运行中');
                 }}>

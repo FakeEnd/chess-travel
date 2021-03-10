@@ -141,7 +141,9 @@ function Chainchess() {
                 <br />
                 横轴坐标：<InputNumber min={1} max={col} defaultValue={1} onChange={(value) => setY(value - 1)} />
                 <br />
-                <Button loading={fetchLoading} onClick={ensure} >确认</Button>
+                <Button loading={fetchLoading} onClick={loading ? ensure : () => {
+                    message.error('程序正在运行中');
+                }} >确认</Button>
                 <Button style={{ margin: "10px" }} onClick={loading ? handleBegin : () => {
                     message.error('程序正在运行中');
                 }}>
@@ -149,7 +151,7 @@ function Chainchess() {
                 </Button>
                 <Divider orientation="left" style={{ margin: '20px 0px 0px', width: "200px" }}>走过的各位置的坐标</Divider>
                 <div className="chainchesslist">
-                    <Spin style={{height:'300px'}} spinning={listLoading} >
+                    <Spin style={{ height: '300px' }} spinning={listLoading} >
                         <ol >
                             {
                                 doc.map((value, index) => {
